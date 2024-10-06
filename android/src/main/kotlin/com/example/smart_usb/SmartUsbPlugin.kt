@@ -449,9 +449,11 @@ fun UsbDevice.findEndpoint(endpointNumber: Int, direction: Int): UsbEndpoint? {
   for (i in 0..interfaceCount) {
     val usbInterface = getInterface(i)
     for (j in 0..usbInterface.endpointCount) {
-      val endpoint = usbInterface.getEndpoint(j)
-      if (endpoint.endpointNumber == endpointNumber && endpoint.direction == direction) {
-        return endpoint
+      if (usbInterface.endpointCount > 0) {
+        val endpoint = usbInterface.getEndpoint(j)
+        if (endpoint.endpointNumber == endpointNumber && endpoint.direction == direction) {
+          return endpoint
+        }
       }
     }
   }
